@@ -1,0 +1,7 @@
+mqtt.eclipseprojects.io
+This is a public test MQTT broker service. It currently listens on the following ports:
+
+1883 : MQTT over unencrypted TCP
+8883 : MQTT over encrypted TCP
+80 : MQTT over unencrypted WebSockets (note: URL must be /mqtt )
+443 : MQTT over encrypted WebSockets (note: URL must be /mqtt )
