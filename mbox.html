@@ -40,6 +40,8 @@
 		// called when a message arrives
 		function onMessageArrived(message) {
 			console.log("onMessageArrived:"+message.payloadString);
+		    if(message.destinationName == "iotusersclub/ack")
+			document.getElementById("demo1").innerHTML = message.payloadString;
 			
 		}
 			
@@ -63,7 +65,8 @@ MQTTconnect();
   <input type="text" id="msg" name="msg" size="16" maxlength="16"  ><br>
   <input type="button" value="Submit" onclick="submitfn()">
 
-
+  <br>
+	<h3 align="center" id="demo1"></h3>
 <script>
 document.getElementById("demo").innerHTML = random1;
 </script>
