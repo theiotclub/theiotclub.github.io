@@ -47,10 +47,12 @@
 		}
 			
                function submitfn(){
+		        var dt = new Date();
  			var txt1 = document.getElementById("msg").value;		
 			message = new Paho.MQTT.Message(txt1);
 			message.destinationName = "IoTinTopic";
 			mqtt.send(message);
+		        document.getElementById("demo1").innerHTML = dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds()+"  "+"Msg Sent";
 			console.log(txt1);
 
 		}
