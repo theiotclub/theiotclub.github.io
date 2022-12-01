@@ -40,9 +40,10 @@
 		// called when a message arrives
 		function onMessageArrived(message) {
 			console.log("onMessageArrived:"+message.payloadString);
-		    if(message.destinationName == "iotusersclub/ack")
-			document.getElementById("demo1").innerHTML = message.payloadString;
-			
+			var dt = new Date();
+			if(message.destinationName == "iotusersclub/ack")
+   			     document.getElementById("demo1").innerHTML = dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds()+"  "+ message.payloadString;
+		   		
 		}
 			
                function submitfn(){
