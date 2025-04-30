@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>IoT Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="icon" href="data:,">
+  <style>
+    html {
+      font-family: Arial; 
+      display: inline-block; 
+      text-align: center;
+    }
+    p { 
+      font-size: 1.2rem;
+    }
+    body {  
+      margin: 0;
+    }
+    .topnav { 
+      overflow: hidden; 
+      background-color: #770D0D; 
+      color: white; 
+      font-size: 1rem; 
+    }
+    .content { 
+      padding: 20px; 
+    }
+    .card { 
+      background-color: white; 
+      box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5); 
+    }
+    .cards { 
+      max-width: 800px; 
+      margin: 0 auto; 
+      display: grid; 
+      grid-gap: 2rem; 
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    .reading { 
+      font-size: 1.4rem;  
+    }
+
+  </style>
+<script>
+var txturl;
+
+function bulbON() {
+console.log("bulb on");
+ txturl = "https://api.thingspeak.com/update?api_key="+document.getElementById("txtapikey").value+"&field1="+document.getElementById("txtbulbon").value
+sendData();
+
+//https://api.thingspeak.com/update?api_key=KKR0IAD5MZPHV1BJ&field1=0
+}
+
+
+    
+function bulbOFF(){
+console.log("bulb off");
+txturl = "https://api.thingspeak.com/update?api_key="+document.getElementById("txtapikey").value+"&field2="+document.getElementById("txtbulboff").value
+sendData();
+
+}
+
+function clearStatus() {
+  document.getElementById("lblstatus").innerHTML = "";
+
+}
+
+function enableButtons(){
+
+  document.getElementById("btnON").disabled = false;
+  document.getElementById("btnOFF").disabled = false;
+}
+
+function sendData(){
+
+  document.getElementById("btnON").disabled = true;
+  document.getElementById("btnOFF").disabled = true;
+
+  var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("lblstatus").innerHTML = "Data Sent";
+    }
+  };
+
+     
+      xhttp.open("GET", txturl, true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send();
+	  setTimeout(enableButtons,15000);
+	  setTimeout(clearStatus, 3000)
+
+}
+ 
+
+</script>
+
+</head>
+<body>
+<div class="topnav">
+		<h1>IoT Demo - Home Automation </h1>
+ </div>
+<div class="content">
+	
+	<table align=center width=100%> 
+	<tr><td colspan=2><h4>API KEY</h4><input type="textbox" id="txtapikey" size=40 > <br></td></tr>
+	<tr><td> <h4>LED 1 Value </h4><input type="textbox" id="txtbulbon" > <br></td>
+	<td><h4>LED 2 Value </h4><input type="textbox" id="txtbulboff" > <br></td></tr>	</table>
+</div>
+<div class="content">
+<table align=center width=100%> 
+		<tr> 		
+			<td><input type="button" id="btnON" style="background: Green; position: relative; width: 100%; text-align: center;" value="LED 1" onclick="bulbON()" /></td> 
+		</tr>
+		<tr><td></td></tr><tr><td></td></tr><tr><td></td></tr>
+		 <tr>
+			  <td><input type="button" id="btnOFF" style="background: Red; position: relative; width: 100%; text-align: center;" value="LED 2" onClick="bulbOFF()" /></td> 
+	     </tr>  
+
+	</table> 
+	
+<div class="card">
+ <h4 id="lblstatus" style="background:rgb(224, 117, 117);position: relative; bottom: 0; left: 0; width: 100%; text-align: center;"></h4>
+</div>
+ 
+ 
+ <div class="content">
+	<div class="card">
+	   <h4 id="footer" style=" background: yellow; position: fixed; bottom: 0; left: 0; width: 100%; text-align: center;">Designed & Developed by IoT Users Club</h4>	
+	 </div>
+   </div>
+</body> 
+</html>
+
